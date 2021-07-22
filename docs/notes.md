@@ -12,3 +12,6 @@
    - User
       - has_many: tickets
     
+### Random thoughts
+Do I need to create a tag model?
+Should I parse the date strings into dates for comparison?
