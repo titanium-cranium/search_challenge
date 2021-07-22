@@ -2,10 +2,10 @@
 
 # user class
 class User
-  attr_reader(:_id, :name, :created_at, :verified)
+  attr_reader(:id, :name, :created_at, :verified)
 
-  def initialize(_id:, name:, created_at:, verified:)
-    @_id = _id
+  def initialize(id:, name:, created_at:, verified:)
+    @id = id
     @name = name
     @created_at = created_at
     @verified = verified
