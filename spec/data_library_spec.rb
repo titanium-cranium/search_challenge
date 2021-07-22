@@ -2,13 +2,33 @@
 
 require 'rspec'
 require 'json'
+require_relative '../lib/data_library'
 require_relative '../lib/data_loader'
+require_relative '../lib/user'
+require_relative '../lib/ticket'
 
-RSpec.describe DataLoader do
-  describe '#initialize' do
-    let(:user_data) { JSON.parse(DataLoader.new(data_type: 'users').data) }
-    it 'loads the user data into memory' do
-      expect(user_data.count).to be(75)
+RSpec.describe DataLibrary do
+  describe '#users' do
+    let(:users) { DataLibrary.users }
+    it 'creates a user library' do
+      expect(users.count).to be(75)
+    end
+
+    let(:user) { DataLibrary.users.first}
+    it 'user library includes User objects' do
+      expect(user.class.to_s).to eq("User")
+    end
+  end
+
+  describe "#tickets" do
+    let(:tickets) { DataLibrary.tickets }
+    it 'creates a ticket library' do
+      expect(tickets.count).to be(200)
+    end
+
+    let(:ticket) { DataLibrary.tickets.first}
+    it 'ticket library includes Ticket objects' do
+      expect(ticket.class.to_s).to eq("Ticket")
     end
   end
 end
