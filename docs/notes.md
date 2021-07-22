@@ -2,7 +2,7 @@
 
 1. Data
     - Ticket 
-        - belong_to: user
+        - belongs_to: user
            - can be unassigned
         - has_many: tags
         - seems to be a *level* indicated in ticket subject
