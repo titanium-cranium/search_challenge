@@ -15,3 +15,11 @@
 ### Random thoughts
 Do I need to create a tag model?
 Should I parse the date strings into dates for comparison?
+
+
+### ToDos
+1. Add cli
+2. Add error handling
+3. performance testing
+4. handle search for missing values
+    - make attributes optional
