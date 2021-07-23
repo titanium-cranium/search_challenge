@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
+require_relative './data_loader'
+require_relative './user'
+require_relative './ticket'
+
 # DataLibrary class
 class DataLibrary
   def self.users
-    @users ||= self.load_users
+    @users ||= load_users
   end
 
   def self.tickets
-    @tickets ||= self.load_tickets
+    @tickets ||= load_tickets
   end
 
   def self.load_users(users_json = nil)

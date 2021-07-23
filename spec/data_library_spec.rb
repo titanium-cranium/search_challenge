@@ -14,21 +14,21 @@ RSpec.describe DataLibrary do
       expect(users.count).to be(75)
     end
 
-    let(:user) { DataLibrary.users.first}
+    let(:user) { DataLibrary.users.first }
     it 'user library includes User objects' do
-      expect(user.class.to_s).to eq("User")
+      expect(user.class.to_s).to eq('User')
     end
   end
 
-  describe "#tickets" do
+  describe '#tickets' do
     let(:tickets) { DataLibrary.tickets }
     it 'creates a ticket library' do
       expect(tickets.count).to be(200)
     end
 
-    let(:ticket) { DataLibrary.tickets.first}
+    let(:ticket) { DataLibrary.tickets.first }
     it 'ticket library includes Ticket objects' do
-      expect(ticket.class.to_s).to eq("Ticket")
+      expect(ticket.class.to_s).to eq('Ticket')
     end
   end
 end
