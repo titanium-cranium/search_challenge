@@ -46,17 +46,26 @@ RSpec.describe Ticket do
     end
   end
 
-  describe  ".all" do
-    let(:tickets) {Ticket.all}
-    it "retrives all tickets in data library" do
+  describe '.all' do
+    let(:tickets) { Ticket.all }
+    it 'retrives all tickets in data library' do
       expect(tickets.count).to eq(200)
     end
   end
 
-  describe ".search" do
-    let(:tickets) {Ticket.search(search_term: "type", search_value: "incident")}
-    it "retrieves all tickets limited by search term & value" do
+  describe '.search' do
+    let(:tickets) { Ticket.search(search_term: 'type', search_value: 'incident') }
+    it 'retrieves all tickets limited by search term & value' do
       expect(tickets.count).to eq(35)
+    end
+  end
+
+  describe '#to_s' do
+    it 'prints the ticket details to the console' do
+      ticket = Ticket.all.first
+      expect do
+        ticket.to_s
+      end.to output("_id: 436bf9b0-1147-4c0a-8439-6f79833bff5b\ncreated_at: 2016-04-28T11:19:34-10:00\ntype: incident\nsubject: A Catastrophe in Korea (North)\nassignee_id: 24\ntags: [\"Ohio\", \"Pennsylvania\", \"American Samoa\", \"Northern Mariana Islands\"]\nassignee_name: Harris Côpeland\n\n").to_stdout
     end
   end
 end

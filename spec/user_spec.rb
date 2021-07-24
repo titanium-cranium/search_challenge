@@ -32,4 +32,13 @@ RSpec.describe User do
       expect(user.first.id).to eq(24)
     end
   end
+
+  describe '#to_s' do
+    it 'prints the user details to the console' do
+      user = User.all.first
+      expect do
+        user.to_s
+      end.to output("_id: 1\nname: Francisca Rasmussen\ncreated_at: 2016-04-15T05:19:46-10:00\nverified: true\n\n").to_stdout
+    end
+  end
 end
