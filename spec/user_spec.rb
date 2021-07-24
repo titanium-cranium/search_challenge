@@ -19,4 +19,17 @@ RSpec.describe User do
       expect(user.tickets.count).to eq(4)
     end
   end
+
+  describe '.all' do
+    it 'retrives all users' do
+      expect(User.all.count).to eq(75)
+    end
+  end
+
+  describe '.search' do
+    let(:user) { User.search(search_term: 'name', search_value: 'Harris Côpeland') }
+    it 'retrieves all users that match the criteria' do
+      expect(user.first.id).to eq(24)
+    end
+  end
 end
