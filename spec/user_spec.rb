@@ -21,7 +21,7 @@ RSpec.describe User do
   end
 
   describe '.all' do
-    it 'retrives all users' do
+    it 'retrieves all users' do
       expect(User.all.count).to eq(75)
     end
   end
