@@ -24,7 +24,7 @@ class DataLibrary
   def self.load_tickets(tickets_json = nil)
     tickets_json = DataLoader.new(data_type: 'tickets').data if tickets_json.nil?
     @tickets = JSON.parse(tickets_json).map do |ticket|
-      Ticket.new(id: ticket['_uid'], created_at: ticket['created_at'], type: ticket['type'],
+      Ticket.new(id: ticket['_id'], created_at: ticket['created_at'], type: ticket['type'],
                  subject: ticket['subject'], assignee_id: ticket['assignee_id'], tags: ticket['tags'])
     end
   end

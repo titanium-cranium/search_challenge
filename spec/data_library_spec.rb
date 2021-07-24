@@ -26,9 +26,8 @@ RSpec.describe DataLibrary do
       expect(tickets.count).to be(200)
     end
 
-    let(:ticket) { DataLibrary.tickets.first }
     it 'ticket library includes Ticket objects' do
-      expect(ticket.class.to_s).to eq('Ticket')
+      expect(tickets.first.class.to_s).to eq('Ticket')
     end
   end
 end
