@@ -45,4 +45,18 @@ RSpec.describe Ticket do
       expect(ticket.user.name).to eq('Harris Côpeland')
     end
   end
+
+  describe  ".all" do
+    let(:tickets) {Ticket.all}
+    it "retrives all tickets in data library" do
+      expect(tickets.count).to eq(200)
+    end
+  end
+
+  describe ".search" do
+    let(:tickets) {Ticket.search(search_term: "type", search_value: "incident")}
+    it "retrieves all tickets limited by search term & value" do
+      expect(tickets.count).to eq(35)
+    end
+  end
 end
