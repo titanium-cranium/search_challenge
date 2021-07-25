@@ -14,7 +14,7 @@ class Ticket
     all.select { |ticket| ticket.public_send(search_term) == search_value }
   end
 
-  def initialize(id:, created_at:, type:, subject:, tags:, assignee_id: -1)
+  def initialize(id:, created_at: '', type: '', subject: '', tags: [], assignee_id: -1)
     @id = id
     @created_at = created_at
     @type = type
@@ -24,17 +24,20 @@ class Ticket
   end
 
   def user
+    # this makes an assumption that all tickets have only one assignee
     DataLibrary.users.select { |user| user.id == assignee_id }.first
   end
 
-  def to_s
-    puts "_id: #{id}" if id
-    puts "created_at: #{created_at}" if created_at
-    puts "type: #{type}" if type
-    puts "subject: #{subject}" if subject
-    puts "assignee_id: #{assignee_id}" if assignee_id
-    puts "tags: #{tags}" if tags
-    puts "assignee_name: #{user.name}" if user
-    puts "\n"
+  def describe(include_associations: false)
+    hash = {
+      _id: id,
+      created_at: created_at,
+      type: type,
+      subject: subject,
+      assignee_id: assignee_id,
+      tags: tags
+    }
+    hash[:assignee_name] = user&.name if include_associations
+    hash
   end
 end

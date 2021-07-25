@@ -33,12 +33,16 @@ RSpec.describe User do
     end
   end
 
-  describe '#to_s' do
-    it 'prints the user details to the console' do
-      user = User.all.first
-      expect do
-        user.to_s
-      end.to output("_id: 1\nname: Francisca Rasmussen\ncreated_at: 2016-04-15T05:19:46-10:00\nverified: true\n\n").to_stdout
+  describe '#describe' do
+    let(:user) { User.all.first }
+    it 'returns the user details in a hash' do
+      expect(user.describe).to eq({ _id: 1, name: 'Francisca Rasmussen', created_at: '2016-04-15T05:19:46-10:00',
+                                    verified: true })
+    end
+
+    it 'includes the ticket subjects' do
+      expect(user.describe(include_associations: true)).to eq({ _id: 1, name: 'Francisca Rasmussen',
+                                                                created_at: '2016-04-15T05:19:46-10:00', verified: true, tickets: ['A Problem in Russian Federation', 'A Problem in Malawi'] })
     end
   end
 end
