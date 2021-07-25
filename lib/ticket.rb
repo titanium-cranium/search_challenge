@@ -14,7 +14,7 @@ class Ticket
     all.select { |ticket| ticket.public_send(search_term) == search_value }
   end
 
-  def initialize(id:, created_at: '', type: '', subject: '', tags: [], assignee_id: -1)
+  def initialize(id:, created_at: nil, type: nil, subject: nil, tags: [], assignee_id: nil)
     @id = id
     @created_at = created_at
     @type = type

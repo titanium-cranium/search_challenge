@@ -14,7 +14,7 @@ class User
     all.select { |user| user.public_send(search_term) == search_value }
   end
 
-  def initialize(id:, name: '', created_at: '', verified: false)
+  def initialize(id:, name: nil, created_at: nil, verified: nil)
     @id = id
     @name = name
     @created_at = created_at

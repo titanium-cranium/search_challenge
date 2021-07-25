@@ -20,7 +20,7 @@ RSpec.describe Ticket do
     end
 
     it 'sets the assignee_id to the default value' do
-      expect(unassigned_ticket.assignee_id).to be(-1)
+      expect(unassigned_ticket.assignee_id).to be(nil)
     end
   end
 
@@ -57,6 +57,11 @@ RSpec.describe Ticket do
     let(:tickets) { Ticket.search(search_term: 'type', search_value: 'incident') }
     it 'retrieves all tickets limited by search term & value' do
       expect(tickets.count).to eq(35)
+    end
+
+    it 'retrieves tickets with missing data' do
+      tickets = Ticket.search(search_term: 'assignee_id', search_value: nil)
+      expect(tickets.count).to eq(4)
     end
   end
 
