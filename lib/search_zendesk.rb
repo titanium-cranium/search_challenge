@@ -24,9 +24,10 @@ class SearchZendesk < Thor
     puts '* Press 1 to search Zendesk'
     puts '* Press 2 to view a list of searchable fields'
     response = $stdin.gets.chomp
-    if response == '1'
+    case response
+    when '1'
       search_zendesk
-    elsif response == '2'
+    when '2'
       list_fields
     end
   end
@@ -35,11 +36,12 @@ class SearchZendesk < Thor
     puts "\n\n"
     puts 'Select (1) Users or (2) Tickets'
     response = $stdin.gets.chomp
-    if response == '1'
+    case response
+    when '1'
       search('User')
-    elsif response == '2'
+    when '2'
       search('Ticket')
-    elsif response == 'quit'
+    when 'quit'
       exit(true)
     else
       puts('Only (1) or (2) are allowed')
@@ -65,7 +67,6 @@ class SearchZendesk < Thor
     search_value = $stdin.gets.chomp
     search_value = search_value.to_i if search_term == 'id' && model == 'User'
     search_value = nil if search_value == ''
-    puts "search_value: #{search_value}"
     obj_array = Object.const_get(model).search(search_term: search_term, search_value: search_value)
     if obj_array.empty?
       puts "Sorry, no #{model}s were found."
