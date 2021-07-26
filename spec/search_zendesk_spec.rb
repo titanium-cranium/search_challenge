@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require_relative '../lib/search_zendesk'
 require_relative '../lib/user'
@@ -22,7 +24,7 @@ describe 'SearchZendesk' do
       end.to output("_id: 1\ncreated_at: 1944-06-06T04:00:00+01:00\ntype: eureka\nsubject: Enigma\nassignee_id: 1\ntags: [\"Bletchley Park\", \"Omaha Beach\", \"Berlin\", \"London\"]\n\n").to_stdout
     end
 
-    describe ".attributes" do
+    describe '.attributes' do
       it 'outputs the keys to STDOUT' do
         expect { SearchZendesk.attributes(user_data) }.to output("_id\nname\ncreated_at\nverified\n").to_stdout
         expect do

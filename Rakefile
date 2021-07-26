@@ -1,9 +1,10 @@
+# frozen_string_literal: true
 
-task :default => [:run]
+task default: [:run]
 
-desc "Engage!"
-task "run" do
-  $LOAD_PATH.unshift(File.dirname(__FILE__), "lib")
+desc 'Engage!'
+task 'run' do
+  $LOAD_PATH.unshift(File.dirname(__FILE__), 'lib')
   require 'lib/search_zendesk'
   SearchZendesk.start
 end

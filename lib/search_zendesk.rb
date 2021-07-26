@@ -30,7 +30,7 @@ class SearchZendesk < Thor
     when '2'
       list_fields
     else
-      puts "Only (1) or (2) are allowed"
+      puts 'Only (1) or (2) are allowed'
     end
   end
 

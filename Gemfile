@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 
 ruby '3.0.0'
+gem 'rake'
 gem 'rspec'
 gem 'rubocop'
-gem 'rake'
 gem 'thor'
