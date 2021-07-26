@@ -5,8 +5,7 @@ require_relative './user'
 require_relative './ticket'
 
 # Command Line Interface
-class SearchZendesk < Thor
-  desc 'start', 'start the program'
+class SearchZendesk
   def self.start
     response = nil
     while response != 'quit'
