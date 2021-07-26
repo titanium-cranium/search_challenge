@@ -26,6 +26,54 @@ describe 'SearchZendesk' do
           SearchZendesk.search('User')
         end.to output("Enter search term\nEnter search value\n_id: 1\nname: Francisca Rasmussen\ncreated_at: 2016-04-15T05:19:46-10:00\nverified: true\ntickets: [\"A Problem in Russian Federation\", \"A Problem in Malawi\"]\n\n").to_stdout
       end
+
+      it 'tells the user there were no matching models' do
+        allow(SearchZendesk).to receive(:get_search_term).and_return('name')
+        allow(SearchZendesk).to receive(:get_search_value).with(search_term, model).and_return('Blargle')
+        expect { SearchZendesk.search('User') }.to output("Enter search term\nEnter search value\nSorry, no users were found.\n").to_stdout
+      end
+
+    end
+  end
+
+  describe '.get_search_term' do
+    let(:model) { 'User' }
+    it "returns a valid_search term" do
+      allow($stdin).to receive(:gets).and_return('name')
+      expect(SearchZendesk.get_search_term(model)).to eq('name')
+    end
+
+    it 'tells the user the search_term is invalid' do
+      allow($stdin).to receive(:gets).and_return('blargle')
+      expect { SearchZendesk.get_search_term(model) }.to output("blargle is not a valid search term\n").to_stdout
+      expect(SearchZendesk.get_search_term(model)).to be(nil)
+    end
+  end
+
+  describe '.get_search_value' do
+    let(:model) { "User" }
+    it "returns an unformatted search value" do
+      search_term = "name"
+      allow($stdin).to receive(:gets).and_return('Francisca Rasmussen')
+      expect(SearchZendesk.get_search_value(search_term, model)).to eq('Francisca Rasmussen')
+    end
+
+    it "formats value to integer if search_term equals _id" do
+      search_term = "id"
+      allow($stdin).to receive(:gets).and_return('24')
+      expect(SearchZendesk.get_search_value(search_term, model)).to eq(24)
+    end
+
+    it "returns nil if the search_value is an empty string" do
+      search_term = 'assignee_id'
+      allow($stdin).to receive(:gets).and_return('')
+      expect(SearchZendesk.get_search_value(search_term, model)).to eq(nil)
+    end
+
+    it 'tells the user the search_term is invalid' do
+      allow($stdin).to receive(:gets).and_return('blargle')
+      expect { SearchZendesk.get_search_term(model) }.to output("blargle is not a valid search term\n").to_stdout
+      expect(SearchZendesk.get_search_term(model)).to eq(nil)
     end
   end
 
