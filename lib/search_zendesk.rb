@@ -29,6 +29,8 @@ class SearchZendesk < Thor
       search_zendesk
     when '2'
       list_fields
+    else
+      puts "Only (1) or (2) are allowed"
     end
   end
 
