@@ -32,5 +32,24 @@ describe 'SearchZendesk' do
         end.to output("_id\ncreated_at\ntype\nsubject\nassignee_id\ntags\n").to_stdout
       end
     end
+
+    describe '.valid_search_term?' do
+      let(:valid_search_term) { 'name' }
+      let(:invalid_search_term) { 'blargle' }
+      it 'returns true if search term entered is included in model attributes' do
+        expect(SearchZendesk.valid_search_term?('User', valid_search_term)).to be_truthy
+      end
+
+      it 'returns false if search term entered is included in model attributes' do
+        expect(SearchZendesk.valid_search_term?('User', invalid_search_term)).to be_falsey
+      end
+
+      it 'outputs an error message if false' do
+        expect do
+          SearchZendesk.valid_search_term?('User',
+                                           invalid_search_term)
+        end.to output("blargle is not a valid search term\n").to_stdout
+      end
+    end
   end
 end
