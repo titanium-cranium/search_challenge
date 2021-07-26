@@ -14,53 +14,57 @@ describe 'SearchZendesk' do
                tags: ['Bletchley Park', 'Omaha Beach', 'Berlin', 'London']).describe
   end
 
-  describe ".start" do
-    context "the user wants to exit" do
-      it "exits the user from the program" do
-        allow($stdin).to receive(:gets).and_return("quit")
-        expect {SearchZendesk.start}.to raise_error(SystemExit)
+  describe '.start' do
+    context 'the user wants to exit' do
+      it 'exits the user from the program' do
+        allow($stdin).to receive(:gets).and_return('quit')
+        expect { SearchZendesk.start }.to raise_error(SystemExit)
       end
     end
   end
 
-  describe ".select" do
-    context "gives the user a choice and calls the appropriate method" do
-      it "calls search_zendesk when the user enters 1" do
-        allow($stdin).to receive(:gets).and_return("1")
+  describe '.select' do
+    context 'gives the user a choice and calls the appropriate method' do
+      it 'calls search_zendesk when the user enters 1' do
+        allow($stdin).to receive(:gets).and_return('1')
         expect(SearchZendesk).to receive(:search_zendesk)
         SearchZendesk.select
       end
 
-      it "calls list_fields when the user enters 2" do
-        allow($stdin).to receive(:gets).and_return("2")
+      it 'calls list_fields when the user enters 2' do
+        allow($stdin).to receive(:gets).and_return('2')
         expect(SearchZendesk).to receive(:list_fields)
         SearchZendesk.select
       end
 
-      it "outputs an error message if 1 or 2 are not entered" do
-        allow($stdin).to receive(:gets).and_return("3")
-        expect {SearchZendesk.select }.to output("\n\nSelect Search Options\n* Press 1 to search Zendesk\n* Press 2 to view a list of searchable fields\nOnly (1) or (2) are allowed\n").to_stdout
+      it 'outputs an error message if 1 or 2 are not entered' do
+        allow($stdin).to receive(:gets).and_return('3')
+        expect do
+          SearchZendesk.select
+        end.to output("\n\nSelect Search Options\n* Press 1 to search Zendesk\n* Press 2 to view a list of searchable fields\nOnly (1) or (2) are allowed\n").to_stdout
       end
     end
   end
 
-  describe ".search_zendesk" do
-    context "gives the user a choice and calls the appropriate method" do
+  describe '.search_zendesk' do
+    context 'gives the user a choice and calls the appropriate method' do
       it "calls search('User') when the user enters 1" do
-        allow($stdin).to receive(:gets).and_return("1")
-        expect(SearchZendesk).to receive(:search).with("User")
+        allow($stdin).to receive(:gets).and_return('1')
+        expect(SearchZendesk).to receive(:search).with('User')
         SearchZendesk.search_zendesk
       end
 
       it "calls search('Ticket') when the user enters 1" do
-        allow($stdin).to receive(:gets).and_return("2")
-        expect(SearchZendesk).to receive(:search).with("Ticket")
+        allow($stdin).to receive(:gets).and_return('2')
+        expect(SearchZendesk).to receive(:search).with('Ticket')
         SearchZendesk.search_zendesk
       end
 
-      it "outputs an error message if 1 or 2 are not entered" do
-        allow($stdin).to receive(:gets).and_return("3")
-        expect {SearchZendesk.search_zendesk }.to output("\n\nSelect (1) Users or (2) Tickets\nOnly (1) or (2) are allowed\n").to_stdout
+      it 'outputs an error message if 1 or 2 are not entered' do
+        allow($stdin).to receive(:gets).and_return('3')
+        expect do
+          SearchZendesk.search_zendesk
+        end.to output("\n\nSelect (1) Users or (2) Tickets\nOnly (1) or (2) are allowed\n").to_stdout
       end
     end
   end
@@ -81,15 +85,16 @@ describe 'SearchZendesk' do
       it 'tells the user there were no matching models' do
         allow(SearchZendesk).to receive(:get_search_term).and_return('name')
         allow(SearchZendesk).to receive(:get_search_value).with(search_term, model).and_return('Blargle')
-        expect { SearchZendesk.search('User') }.to output("Enter search term\nEnter search value\nSorry, no users were found.\n").to_stdout
+        expect do
+          SearchZendesk.search('User')
+        end.to output("Enter search term\nEnter search value\nSorry, no users were found.\n").to_stdout
       end
-
     end
   end
 
   describe '.get_search_term' do
     let(:model) { 'User' }
-    it "returns a valid_search term" do
+    it 'returns a valid_search term' do
       allow($stdin).to receive(:gets).and_return('name')
       expect(SearchZendesk.get_search_term(model)).to eq('name')
     end
@@ -102,20 +107,20 @@ describe 'SearchZendesk' do
   end
 
   describe '.get_search_value' do
-    let(:model) { "User" }
-    it "returns an unformatted search value" do
-      search_term = "name"
+    let(:model) { 'User' }
+    it 'returns an unformatted search value' do
+      search_term = 'name'
       allow($stdin).to receive(:gets).and_return('Francisca Rasmussen')
       expect(SearchZendesk.get_search_value(search_term, model)).to eq('Francisca Rasmussen')
     end
 
-    it "formats value to integer if search_term equals _id" do
-      search_term = "id"
+    it 'formats value to integer if search_term equals _id' do
+      search_term = 'id'
       allow($stdin).to receive(:gets).and_return('24')
       expect(SearchZendesk.get_search_value(search_term, model)).to eq(24)
     end
 
-    it "returns nil if the search_value is an empty string" do
+    it 'returns nil if the search_value is an empty string' do
       search_term = 'assignee_id'
       allow($stdin).to receive(:gets).and_return('')
       expect(SearchZendesk.get_search_value(search_term, model)).to eq(nil)
