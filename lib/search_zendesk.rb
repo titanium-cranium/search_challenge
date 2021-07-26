@@ -83,6 +83,7 @@ class SearchZendesk < Thor
     if valid
       search_term = search_term.tr('_', '') if search_term == '_id'
     else
+      puts "#{search_term} is not a valid search term" unless valid
       search_term = nil
     end
     search_term
@@ -105,9 +106,6 @@ class SearchZendesk < Thor
   end
 
   def self.valid_search_term?(model, search_term)
-    valid_terms = Object.const_get(model).new(id: -1).describe.keys.map(&:to_s)
-    valid = valid_terms.include?(search_term)
-    puts "#{search_term} is not a valid search term" unless valid
-    valid
+    Object.const_get(model).new(id: -1).describe.keys.map(&:to_s).include?(search_term)
   end
 end

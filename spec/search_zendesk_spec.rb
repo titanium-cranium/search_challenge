@@ -114,13 +114,6 @@ describe 'SearchZendesk' do
       it 'returns false if search term entered is included in model attributes' do
         expect(SearchZendesk.valid_search_term?('User', invalid_search_term)).to be_falsey
       end
-
-      it 'outputs an error message if false' do
-        expect do
-          SearchZendesk.valid_search_term?('User',
-                                           invalid_search_term)
-        end.to output("blargle is not a valid search term\n").to_stdout
-      end
     end
   end
 end
