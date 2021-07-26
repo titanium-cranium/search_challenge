@@ -95,5 +95,3 @@ class SearchZendesk < Thor
     valid
   end
 end
-
-SearchZendesk.start

@@ -18,9 +18,12 @@ Should I parse the date strings into dates for comparison?
 
 
 ### ToDos
-1. Add cli
-2. Add error handling
-3. performance testing
-4. handle search for different data types (string/integer/date)   
-4. handle search for missing values
-    - make attributes optional
+1. finish frontend testing 
+3. readme
+    a. deficiencies
+    b. cli could be better
+    c. if this were a real app, protect from sql injection
+    d. talk about models
+    3. how to run
+4. Thor?
+5. performance testing
