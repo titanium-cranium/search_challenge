@@ -61,22 +61,38 @@ class SearchZendesk < Thor
 
   def self.search(model)
     puts 'Enter search term'
-    search_term = $stdin.gets.chomp
-    return unless valid_search_term?(model, search_term)
+    search_term = get_search_term(model)
+    return if search_term.nil?
 
-    search_term.tr!('_', '') if search_term == '_id'
     puts 'Enter search value'
-    search_value = $stdin.gets.chomp
-    search_value = search_value.to_i if search_term == 'id' && model == 'User'
-    search_value = nil if search_value == ''
+    search_value = get_search_value(search_term, model)
+
     obj_array = Object.const_get(model).search(search_term: search_term, search_value: search_value)
     if obj_array.empty?
-      puts "Sorry, no #{model}s were found."
+      puts "Sorry, no #{model.downcase}s were found."
     else
       obj_array.each do |obj|
         output(obj.describe(include_associations: true))
       end
     end
+  end
+
+  def self.get_search_term(model)
+    search_term = $stdin.gets.chomp
+    valid = valid_search_term?(model, search_term)
+    if valid
+      search_term = search_term.tr('_', '') if search_term == '_id'
+    else
+      search_term = nil
+    end
+    search_term
+  end
+
+  def self.get_search_value(search_term, model)
+    search_value = $stdin.gets.chomp
+    search_value = search_value.to_i if search_term == 'id' && model == 'User'
+    search_value = nil if search_value == ''
+    search_value
   end
 
   def self.output(model_hash)
