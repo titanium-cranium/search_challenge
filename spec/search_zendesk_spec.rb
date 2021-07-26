@@ -14,6 +14,21 @@ describe 'SearchZendesk' do
                tags: ['Bletchley Park', 'Omaha Beach', 'Berlin', 'London']).describe
   end
 
+  describe '.search' do
+    let(:user) { User.all.first }
+    let(:model) { 'User' }
+    let(:search_term) { 'name' }
+    context 'the user searches successfully' do
+      it 'successfully searches the user model for a name' do
+        allow(SearchZendesk).to receive(:get_search_term).and_return('name')
+        allow(SearchZendesk).to receive(:get_search_value).with(search_term, model).and_return('Francisca Rasmussen')
+        expect do
+          SearchZendesk.search('User')
+        end.to output("Enter search term\nEnter search value\n_id: 1\nname: Francisca Rasmussen\ncreated_at: 2016-04-15T05:19:46-10:00\nverified: true\ntickets: [\"A Problem in Russian Federation\", \"A Problem in Malawi\"]\n\n").to_stdout
+      end
+    end
+  end
+
   describe '.list_fields' do
     it 'lists the searchable fields of the models' do
       expect do
