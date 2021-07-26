@@ -18,12 +18,10 @@ Should I parse the date strings into dates for comparison?
 
 
 ### ToDos
-1. finish frontend testing 
 3. readme
     a. deficiencies
     b. cli could be better
     c. if this were a real app, protect from sql injection
     d. talk about models
     3. how to run
-4. Thor?
 5. performance testing

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'thor'
 require_relative './user'
 require_relative './ticket'
 
@@ -28,6 +27,8 @@ class SearchZendesk
       search_zendesk
     when '2'
       list_fields
+    when 'quit'
+      exit(true)
     else
       puts 'Only (1) or (2) are allowed'
     end

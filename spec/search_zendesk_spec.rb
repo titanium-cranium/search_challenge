@@ -43,6 +43,11 @@ describe 'SearchZendesk' do
           SearchZendesk.select
         end.to output("\n\nSelect Search Options\n* Press 1 to search Zendesk\n* Press 2 to view a list of searchable fields\nOnly (1) or (2) are allowed\n").to_stdout
       end
+
+      it 'exits the user from the program' do
+        allow($stdin).to receive(:gets).and_return('quit')
+        expect { SearchZendesk.select }.to raise_error(SystemExit)
+      end
     end
   end
 
@@ -65,6 +70,11 @@ describe 'SearchZendesk' do
         expect do
           SearchZendesk.search_zendesk
         end.to output("\n\nSelect (1) Users or (2) Tickets\nOnly (1) or (2) are allowed\n").to_stdout
+      end
+
+      it 'exits the user from the program' do
+        allow($stdin).to receive(:gets).and_return('quit')
+        expect { SearchZendesk.search_zendesk }.to raise_error(SystemExit)
       end
     end
   end
