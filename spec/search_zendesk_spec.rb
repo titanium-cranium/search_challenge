@@ -14,6 +14,14 @@ describe 'SearchZendesk' do
                tags: ['Bletchley Park', 'Omaha Beach', 'Berlin', 'London']).describe
   end
 
+  describe '.list_fields' do
+    it 'lists the searchable fields of the models' do
+      expect do
+        SearchZendesk.list_fields
+      end.to output("------------------\nSearch users with\n_id\nname\ncreated_at\nverified\n\n------------------\nSearch tickets with\n_id\ncreated_at\ntype\nsubject\nassignee_id\ntags\n\n").to_stdout
+    end
+  end
+
   describe '.output' do
     it 'outputs model instance details to STDOUT' do
       expect do
